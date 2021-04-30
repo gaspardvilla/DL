@@ -45,7 +45,7 @@ def train_model(model, train_input, train_target, nb_epochs, mini_batch_size):
             loss.backward()
             optimizer.step()
     
-        # print(e, acc_loss)
+        print(e, acc_loss)
         
             
 ######################################################################            
@@ -102,12 +102,9 @@ class FirstConvNet(nn.Module):
     
 ######################################################################   
     
-train_input1, train_target1, train_classes1, test_input1, test_target1, test_classes1 \
+train_input, train_target, train_classes, test_input, test_target, test_classes \
     = prologue.generate_pair_sets(1000)
     
-train_input2, train_target2, train_classes2, test_input2, test_target2, test_classes2 \
-= prologue.generate_pair_sets(1000)
-
 # train_input, train_target, train_classes \
 #     = Variable(train_input), Variable(train_target), Variable(train_classes)
 # test_input, test_target, test_classes \
@@ -129,9 +126,9 @@ model = FirstConvNet()
 nb_epochs = 25
 mini_batch_size = 100
 
-train_model(model, train_input1, train_target1, nb_epochs, mini_batch_size)
+train_model(model, train_input, train_target, nb_epochs, mini_batch_size)
 L = get_tests(10)
-nb_moy_test_error = 0
+average_nb_test_error = 0
 for k in range (0, len(L)):
     nb_test_errors = compute_nb_errors(model, L[k][0], L[k][1], mini_batch_size)
     nb_moy_test_error += nb_test_errors
