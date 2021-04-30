@@ -131,9 +131,9 @@ L = get_tests(10)
 average_nb_test_error = 0
 for k in range (0, len(L)):
     nb_test_errors = compute_nb_errors(model, L[k][0], L[k][1], mini_batch_size)
-    nb_moy_test_error += nb_test_errors
+    average_nb_test_error += nb_test_errors
     print('test error FirstConvNet {:0.2f}% {:d}/{:d}'.format((100 * nb_test_errors) / L[k][0].size(0),
                                                 nb_test_errors, L[k][0].size(0)))
-print('Average test error FirstConvNet {:0.2f}% {:0.1f}/{:d}'.format((100*nb_moy_test_error/10) / L[0][0].size(0),
-                                                                  nb_moy_test_error/10, L[0][0].size(0) ))
+print('Average test error FirstConvNet {:0.2f}% {:0.1f}/{:d}'.format((100*average_nb_test_error/10) / L[0][0].size(0),
+                                                                  average_nb_test_error/10, L[0][0].size(0) ))
 
