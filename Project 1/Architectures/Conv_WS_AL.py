@@ -1,12 +1,11 @@
+# Import of troch library
 import torch
-
 from torch import optim
 from torch.nn import functional as F
 from torch import nn
 
 # Definition of an architecture of neural networks with convolution network, 
 # weight sharing and auxiliary loss
-
 class Conv_WS_AL(nn.Module):
     def __init__(self):
         
