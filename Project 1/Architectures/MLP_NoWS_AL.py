@@ -10,7 +10,7 @@ from torch import nn
 class MLP_NoWS_AL(nn.Module):
     def __init__(self):
         
-        # Set if there is or not auxiliary loss (AL) for this architecture
+        # Set True if there is an auxiliary loss (AL) for this architecture
         self.AL = True
         
         super(MLP_NoWS_AL, self).__init__()

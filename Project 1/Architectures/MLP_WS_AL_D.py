@@ -17,7 +17,7 @@ class MLP_WS_AL_D(nn.Module):
         
         nb_hidden = 100
         input_size = 14*14
-        p = 0.1 #Dropout rate
+        p = 0.1 # Dropout rate
         
         self.layers = nn.Sequential(
             nn.Linear(input_size, nb_hidden),

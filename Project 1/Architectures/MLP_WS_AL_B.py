@@ -20,25 +20,25 @@ class MLP_WS_AL_B(nn.Module):
         
         self.layers = nn.Sequential(
             nn.Linear(input_size, nb_hidden),
-            nn.ReLU(),
             nn.BatchNorm1d(nb_hidden),
+            nn.ReLU(),
             nn.Linear(nb_hidden, nb_hidden),
-            nn.ReLU(),
             nn.BatchNorm1d(nb_hidden),
+            nn.ReLU(),
             nn.Linear(nb_hidden, nb_hidden),
-            nn.ReLU(),
             nn.BatchNorm1d(nb_hidden),
+            nn.ReLU(),
             nn.Linear(nb_hidden, 10),
             nn.LogSoftmax(dim=1)
         )
         
         self.layers_comp = nn.Sequential(
             nn.Linear(20, 200),
-            nn.ReLU(),
             nn.BatchNorm1d(200),
-            nn.Linear(200, 2000),
             nn.ReLU(),
+            nn.Linear(200, 2000),
             nn.BatchNorm1d(2000),
+            nn.ReLU(),
             nn.Linear(2000, 2)
         )
         

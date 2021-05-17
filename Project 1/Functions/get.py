@@ -12,6 +12,9 @@ from Architectures.Conv_NoWS_NoAL import Conv_NoWS_NoAL
 from Architectures.Conv_NoWS_AL import Conv_NoWS_AL
 from Architectures.Conv_WS_NoAL import Conv_WS_NoAL
 from Architectures.Conv_WS_AL import Conv_WS_AL
+from Architectures.Conv_WS_AL_B import Conv_WS_AL_B
+from Architectures.Conv_WS_AL_D import Conv_WS_AL_D
+from Architectures.Conv_WS_AL_BD import Conv_WS_AL_BD
 
 
 # This file is for having a list of n models that share the same architecture. 
@@ -63,6 +66,41 @@ def conv_ws_al(n):
     
     for k in range (0, n):
         model = Conv_WS_AL()
+        L.append(model)
+        
+    return L
+
+# Function for getting a list of n models with Conv_WS_AL_B architecture
+def conv_ws_al_b(n):
+    
+    L = []
+    
+    for k in range (0, n):
+        model = Conv_WS_AL_B()
+        L.append(model)
+        
+    return L
+
+
+# Function for getting a list of n models with Conv_WS_AL_D architecture
+def conv_ws_al_d(n):
+    
+    L = []
+    
+    for k in range (0, n):
+        model = Conv_WS_AL_D()
+        L.append(model)
+        
+    return L
+
+
+# Function for getting a list of n models with Conv_WS_AL_BD architecture
+def conv_ws_al_bd(n):
+    
+    L = []
+    
+    for k in range (0, n):
+        model = Conv_WS_AL_BD()
         L.append(model)
         
     return L
