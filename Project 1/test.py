@@ -5,6 +5,7 @@ import dlc_practical_prologue as prologue
 from Functions.get_tests import get_tests
 from Functions import get
 from Functions.train_and_test_model import train_and_test_model
+from Functions.digit_normalization import digit_normalization
 
 # Just used here for the final plots in the report
 import matplotlib.pyplot as plt
@@ -18,6 +19,9 @@ nb_rounds = 20
 # Definition of the train set
 train_input, train_target, train_classes,_, _, _ \
     = prologue.generate_pair_sets(1000)
+
+# Normalization of the train set
+train_input = digit_normalization(train_input)
 
 # Definition of the 100 tests sets
 Tests = get_tests(nb_rounds)
