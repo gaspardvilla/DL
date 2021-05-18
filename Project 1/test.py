@@ -273,7 +273,7 @@ Train_error_MLP, Test_error_MLP, std_deviation_mlp \
 
 print('Conv')
 # Train and test error for Conv
-Conv = get.conv_ws_al_bd(nb_rounds)
+Conv = get.conv_ws_al_b(nb_rounds)
 Train_error_Conv, Test_error_Conv, std_deviation_conv \
     = train_and_test_model(Conv, train_input, train_target, 
                             train_classes, Tests, nb_epochs, mini_batch_size)
@@ -289,14 +289,14 @@ plt.figure(5)
 epochs = torch.linspace(1, nb_epochs, steps=nb_epochs)
 plt.plot(epochs, Train_error_MLP, 'C3--', label='Train error for MLP_WS_AL_BD')
 plt.plot(epochs, Test_error_MLP, 'C3', label='Test error for MLP_WS_AL_BD')
-plt.plot(epochs, Train_error_Conv, 'C0--', label='Train error for Conv_WS_AL_BD')
-plt.plot(epochs, Test_error_Conv, 'C0', label='Test error for Conv_WS_AL_BD')
+plt.plot(epochs, Train_error_Conv, 'C0--', label='Train error for Conv_WS_AL_B')
+plt.plot(epochs, Test_error_Conv, 'C0', label='Test error for Conv_WS_AL_B')
 plt.xlabel('Epochs')
 plt.ylabel('Percentage of error [%]')
 plt.title('Train and test error for different architectures')
 plt.legend()
 
-plt.savefig('MLP_vs_Conv_WS_AL_BD.jpg')
+plt.savefig('MLP_WS_AL_BD_vs_Conv_WS_AL_B.jpg')
 
 
 # -------------------------------------------------------------------------- #
