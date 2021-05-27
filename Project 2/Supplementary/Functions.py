@@ -3,6 +3,8 @@ import math
 
 torch.set_grad_enabled(False)
 
+from Supplementary.Modules import *
+
 # -------------------------------------------------------------------------- #
 
 # This function return a 2D tensor that is the rando selection of inputs for our
@@ -40,6 +42,52 @@ def train_model(model, train_input, train_classes, nb_epochs, mini_batch_size):
             output = model.forward(train_input[batch])
             # Train the model with this output tqking in count the real classes
             loss = model.backward(output, train_classes[batch])
+
+# -------------------------------------------------------------------------- #
+
+# This function will trained all the models contained in the lis of models in
+# Models with test sets contained in Tests
+def train_and_test_model(Models, train_input, train_classes, Tests, nb_epochs, mini_batch_size):
+    
+    # Initialization of train and test errors and standard deviation
+    Train_error = []
+    Test_error = []
+    std_deviation = 0.0
+    train_error = 0.0
+    avg_nb_test_error = torch.tensor(())
+    
+    for k in range (0, len(Models)):
+        # Renamed the actual model
+        model = Models[k]
+        
+        # Just saying that we want Adam method for learning rate decay
+        model.lr_method("Adam", 1.0e-3)
+        
+        train_model(model, train_input, train_classes, nb_epochs, mini_batch_size)
+        
+        # Set the model in evaluation mode
+        model.Eval()
+        
+        # Compute train error
+        nb_train_errors = compute_nb_errors(model, train_input, train_classes, mini_batch_size)
+        train_error += nb_train_errors / 10
+        
+        # Compute test error
+        nb_test_errors = compute_nb_errors(model, Tests[k][0], Tests[k][1], mini_batch_size)
+        nb_test_errors = torch.tensor([nb_test_errors / 10]).float()
+        avg_nb_test_error = torch.cat((avg_nb_test_error, nb_test_errors), 0)
+        
+        # Set the model in training mode
+        model.Train()
+    
+    # Update of the train and test error
+    Train_error.append(train_error / len(Models))
+    Test_error.append(avg_nb_test_error.mean().tolist())
+
+    # We just want the standard deviation after the last epoch of training
+    std_deviation = avg_nb_test_error.std().tolist()
+    
+    return Train_error, Test_error, std_deviation
 
 # -------------------------------------------------------------------------- #
 
@@ -107,3 +155,37 @@ def get_tests(n):
         L.append(test_classes)
         M.append(L)
     return M
+
+# -------------------------------------------------------------------------- #
+
+# Initialization of many different architectures using different activation
+# functions or different loss. The princiapl structure will be with three 
+# hidden layer of size 25 each.
+def get_Models(Loss, nb_rounds):
+    
+    # Initialization of our models lists
+    Model_ReLU_List = []
+    Model_Tanh_List = []
+    Model_Sigmoid_List = []
+    Model_Leaky_ReLU_List = []
+    Model_ELU_List = []
+    Model_Tanh_Dropout_MSE = []
+    Model_Tanh_Dropout_CE = []
+    
+    # Just change the size of the final output of or model in case we use Cross
+    # Entropy loss (size = 2) or MSE loss (size = 1)
+    final_out = 2
+    if (Loss.is_MSE()):
+        final_out = 1
+    
+    # Loop adding at each list a new model, there will nb_rounds number of them.
+    for k in range (0, nb_rounds):
+        Model_ReLU_List.append(Sequential([Linear(2,25), ReLU(), Linear(25,25), ReLU(), Linear(25,25), ReLU(), Linear(25,final_out), ReLU()], Loss))
+        Model_Tanh_List.append(Sequential([Linear(2,25), Tanh(), Linear(25,25), Tanh(), Linear(25,25), Tanh(), Linear(25,final_out), Tanh()], Loss))
+        Model_Sigmoid_List.append(Sequential([Linear(2,25), Sigmoid(), Linear(25,25), Sigmoid(), Linear(25,25), Sigmoid(), Linear(25,final_out), Sigmoid()], Loss))
+        Model_Leaky_ReLU_List.append(Sequential([Linear(2,25), Leaky_ReLU(), Linear(25,25), Leaky_ReLU(), Linear(25,25), Leaky_ReLU(), Linear(25,final_out), Leaky_ReLU()], Loss))
+        Model_ELU_List.append(Sequential([Linear(2,25), ELU(), Linear(25,25), ELU(), Linear(25,25), ELU(), Linear(25,final_out), ELU()], Loss))
+        Model_Tanh_Dropout_MSE .append(Sequential([Linear(2,25), Tanh(), Dropout(), Linear(25,25), Tanh(), Dropout(), Linear(25,25), Tanh(), Dropout(), Linear(25,1), Tanh()], LossMSE()))
+        Model_Tanh_Dropout_CE.append(Sequential([Linear(2,25), Tanh(), Dropout(), Linear(25,25), Tanh(), Dropout(), Linear(25,25), Tanh(), Dropout(), Linear(25,2), Tanh()], CrossEntropyLoss()))
+        
+    return Model_ReLU_List, Model_Tanh_List, Model_Sigmoid_List, Model_Leaky_ReLU_List, Model_ELU_List, Model_Tanh_Dropout_MSE, Model_Tanh_Dropout_CE

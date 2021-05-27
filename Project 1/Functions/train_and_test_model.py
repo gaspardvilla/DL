@@ -24,6 +24,7 @@ def train_and_test_model(Models, train_input, train_target, train_classes, Tests
         train_error = 0.0
         avg_nb_test_error = torch.tensor(())
         
+        # Print of the actual epoch
         print('epoch =', e)
         
         for k in range(len(Models)):

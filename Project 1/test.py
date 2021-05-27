@@ -14,6 +14,10 @@ import matplotlib.pyplot as plt
 # Initialization of all the parameters
 nb_epochs = 50
 mini_batch_size = 100
+
+# Initialization of all the parameters
+# !! IMPORTANT !! To run the test.py file much faster, we recommend using a 
+# number of epochs 25 and a number of rounds = 2
 nb_rounds = 20
 
 # Definition of the train set

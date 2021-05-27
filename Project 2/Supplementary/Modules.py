@@ -320,13 +320,13 @@ class Sigmoid(Layer):
     def __init__(self):
         super().__init__()
         self.s = 0
-        self.lbd = 3
+        self.lambd = 3
         
     def forward(self, x):
-        y = 1 / (1 + torch.exp(-self.lbd * x))
+        y = 1 / (1 + torch.exp(-self.lambd * x))
         self.s = x
         return y
     
     def backward(self, x):
-        y = self.lbd * torch.exp(-self.s) / ((1 + torch.exp(-self.lbd * self.s))**2)
+        y = self.lambd * torch.exp(-self.s) / ((1 + torch.exp(-self.lambd * self.s))**2)
         return y.float() * x  
