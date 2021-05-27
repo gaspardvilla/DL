@@ -189,3 +189,18 @@ def get_Models(Loss, nb_rounds):
         Model_Tanh_Dropout_CE.append(Sequential([Linear(2,25), Tanh(), Dropout(), Linear(25,25), Tanh(), Dropout(), Linear(25,25), Tanh(), Dropout(), Linear(25,2), Tanh()], CrossEntropyLoss()))
         
     return Model_ReLU_List, Model_Tanh_List, Model_Sigmoid_List, Model_Leaky_ReLU_List, Model_ELU_List, Model_Tanh_Dropout_MSE, Model_Tanh_Dropout_CE
+
+# -------------------------------------------------------------------------- #
+
+# This function is essentialy for the plots something that is close to a 
+# density probability function by the fact that each line has sum equla to one,
+# and every elements are strictly positive thanks to the exponential functions.
+def soft_max(data_output):
+    output = data_output.to(dtype=torch.float)
+    L = output.exp()
+    
+    # To avoid numerical error in the computation
+    maxx = L.max()
+    
+    L = torch.div((L * maxx), (output.exp().sum(1).resize(L.size(0),1) * maxx))
+    return L
