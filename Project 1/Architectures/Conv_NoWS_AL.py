@@ -41,21 +41,24 @@ class Conv_NoWS_AL(nn.Module):
         # Formula to get out_put size (in_size - kernel_size + 2*(padding)) / stride) + 1
         # first layer (14-5+2*2)/1 +1 = 14/2 = 7
         # second layer (7 -4 +2*2)/1 +1 = 8/2 = 4
-        # 4 * 4 * 64 input features, 1000 output features
-        self.fc1_first_digit = nn.Linear(4 * 4 * 64, 1000)
-        self.fc1_second_digit = nn.Linear(4 * 4 * 64, 1000)
+        # 4 * 4 * 64 input features, 10 output features      
+        self.fc_first_digit = nn.Sequential(
+            nn.Linear(4 * 4 * 64, 1000),
+            nn.ReLU(),
+            nn.Linear(1000, 10))
         
-        # 1000 input features, 2 output features
-        self.fc2_first_digit = nn.Linear(1000, 10)
-        self.fc2_second_digit = nn.Linear(1000, 10)
+        self.fc_second_digit = nn.Sequential(
+            nn.Linear(4 * 4 * 64, 1000),
+            nn.ReLU(),
+            nn.Linear(1000, 10))
         
         #Comparison of the two digits
         self.layer_comp = nn.Sequential(
-            nn.Linear(20, 60),
+            nn.Linear(20, 200),
             nn.ReLU(),
-            nn.Linear(60, 120),
+            nn.Linear(200, 200),
             nn.ReLU(),
-            nn.Linear(120, 2))
+            nn.Linear(200, 2))
         
     def forward(self, x):
         
@@ -67,12 +70,9 @@ class Conv_NoWS_AL(nn.Module):
         
         first_digit = self.layer2_first_digit(first_digit)
         second_digit = self.layer2_second_digit(second_digit)
-    
-        first_digit = F.relu(self.fc1_first_digit(first_digit.view(-1, 4 * 4 * 64)))
-        second_digit = F.relu(self.fc1_second_digit(second_digit.view(-1, 4 * 4 * 64)))
         
-        first_digit = self.fc2_first_digit(first_digit)
-        second_digit = self.fc2_second_digit(second_digit)
+        first_digit = self.fc_first_digit(first_digit.view(-1, 4 * 4 * 64))
+        second_digit = self.fc_second_digit(second_digit.view(-1, 4 * 4 * 64))
         
         result = torch.cat((first_digit, second_digit), dim=1, out=None)
         result = self.layer_comp(result)

@@ -25,166 +25,110 @@ from Architectures.Conv_WS_AL_BD import Conv_WS_AL_BD
 
 # Function for getting a list of n models with Conv_NoWS_NoAL architecture
 def conv_nows_noal(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = Conv_NoWS_NoAL()
-        L.append(model)
-        
+        L.append(Conv_NoWS_NoAL())
     return L
 
 
 # Function for getting a list of n models with Conv_NoWS_AL architecture
 def conv_nows_al(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = Conv_NoWS_AL()
-        L.append(model)
-        
+        L.append(Conv_NoWS_AL()) 
     return L
 
 
 # Function for getting a list of n models with Conv_WS_NoAL architecture
 def conv_ws_noal(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = Conv_WS_NoAL()
-        L.append(model)
-        
+        L.append(Conv_WS_NoAL())
     return L
 
 
 # Function for getting a list of n models with Conv_WS_AL architecture
 def conv_ws_al(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = Conv_WS_AL()
-        L.append(model)
-        
+        L.append(Conv_WS_AL())
     return L
 
 # Function for getting a list of n models with Conv_WS_AL_B architecture
 def conv_ws_al_b(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = Conv_WS_AL_B()
-        L.append(model)
-        
+        L.append(Conv_WS_AL_B())
     return L
 
 
 # Function for getting a list of n models with Conv_WS_AL_D architecture
 def conv_ws_al_d(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = Conv_WS_AL_D()
-        L.append(model)
-        
+        L.append(Conv_WS_AL_D())
     return L
 
 
 # Function for getting a list of n models with Conv_WS_AL_BD architecture
 def conv_ws_al_bd(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = Conv_WS_AL_BD()
-        L.append(model)
-        
+        L.append(Conv_WS_AL_BD())
     return L
 
 
 # Function for getting a list of n models with MLP_NoWS_NoAL architecture
 def mlp_nows_noal(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = MLP_NoWS_NoAL()
-        L.append(model)
-        
+        L.append(MLP_NoWS_NoAL())
     return L
 
 
 # Function for getting a list of n models with MLP_NoWS_AL architecture
 def mlp_nows_al(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = MLP_NoWS_AL()
-        L.append(model)
-        
+        L.append(MLP_NoWS_AL())
     return L
 
 
 # Function for getting a list of n models with MLP_WS_NoAL architecture
 def mlp_ws_noal(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = MLP_WS_NoAL()
-        L.append(model)
-        
+        L.append(MLP_WS_NoAL())
     return L
 
 
 # Function for getting a list of n models with MLP_WS_AL architecture
 def mlp_ws_al(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = MLP_WS_AL()
-        L.append(model)
-        
+        L.append(MLP_WS_AL())
     return L
 
 
 # Function for getting a list of n models with MLP_WS_AL_B architecture
 def mlp_ws_al_b(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = MLP_WS_AL_B()
-        L.append(model)
-        
+        L.append(MLP_WS_AL_B())
     return L
 
 
 # Function for getting a list of n models with MLP_WS_AL_D architecture
-def mlp_ws_al_d(n):
-    
-    L = []
-    
+def mlp_ws_al_d(n):    
+    L = [] 
     for k in range (0, n):
-        model = MLP_WS_AL_D()
-        L.append(model)
-        
+        L.append(MLP_WS_AL_D())
     return L
 
 
 # Function for getting a list of n models with MLP_WS_AL_BD architecture
 def mlp_ws_al_bd(n):
-    
     L = []
-    
     for k in range (0, n):
-        model = MLP_WS_AL_BD()
-        L.append(model)
-        
+        L.append(MLP_WS_AL_BD())
     return L

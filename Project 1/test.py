@@ -27,7 +27,7 @@ train_input, train_target, train_classes,_, _, _ \
 # Normalization of the train set
 train_input = digit_normalization(train_input)
 
-# Definition of the 100 tests sets
+# Definition of the nb_rounds tests sets
 Tests = get_tests(nb_rounds)
 
 

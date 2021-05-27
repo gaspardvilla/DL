@@ -29,7 +29,7 @@ class Conv_WS_AL(nn.Module):
         # Formula to get out_put size (in_size - kernel_size + 2*(padding)) / stride) + 1
         # first layer (14 - 3 + 2*1) + 1 = 14/2 = 7
         # second layer (7 - 2 + 2*1) + 1 = 8/2 = 4
-        # 4 * 4 * 64 input features, 1000 output features
+        # 4 * 4 * 64 input features, 10 output features
         self.fc = nn.Sequential(
             nn.Linear(4 * 4 * 64, 1000),
             nn.ReLU(),

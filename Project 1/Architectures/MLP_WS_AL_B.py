@@ -36,10 +36,10 @@ class MLP_WS_AL_B(nn.Module):
             nn.Linear(20, 200),
             nn.BatchNorm1d(200),
             nn.ReLU(),
-            nn.Linear(200, 2000),
-            nn.BatchNorm1d(2000),
+            nn.Linear(200, 200),
+            nn.BatchNorm1d(200),
             nn.ReLU(),
-            nn.Linear(2000, 2)
+            nn.Linear(200, 2)
         )
         
     def forward(self, x):

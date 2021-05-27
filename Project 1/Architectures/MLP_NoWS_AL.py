@@ -43,9 +43,9 @@ class MLP_NoWS_AL(nn.Module):
         self.layers_comp = nn.Sequential(
             nn.Linear(20, 200),
             nn.ReLU(),
-            nn.Linear(200, 2000),
+            nn.Linear(200, 200),
             nn.ReLU(),
-            nn.Linear(2000, 2)
+            nn.Linear(200, 2)
         )
         
     def forward(self, x):

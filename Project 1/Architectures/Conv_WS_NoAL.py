@@ -27,23 +27,22 @@ class Conv_WS_NoAL(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2))
 
-        
         # Formula to get out_put size (in_size - kernel_size + 2*(padding)) / stride) + 1
-        # first layer (14-5+2*2)/1 +1 = 14/2 = 7
-        # second layer (7 -4 +2*2)/1 +1 = 8/2 = 4
-        # 4 * 4 * 64 input features, 1000 output features
-        self.fc1 = nn.Linear(4 * 4 * 64, 1000)
-        
-        # 1000 input features, 2 output features
-        self.fc2 = nn.Linear(1000, 10)
+        # first layer (14 - 3 + 2*1) + 1 = 14/2 = 7
+        # second layer (7 - 2 + 2*1) + 1 = 8/2 = 4
+        # 4 * 4 * 64 input features, 10 output features
+        self.fc = nn.Sequential(
+            nn.Linear(4 * 4 * 64, 1000),
+            nn.ReLU(),
+            nn.Linear(1000, 10))
 
         #Comparison of the two digits
         self.layer_comp = nn.Sequential(
-            nn.Linear(20, 60),
+            nn.Linear(20, 200),
             nn.ReLU(),
-            nn.Linear(60, 120),
+            nn.Linear(200, 200),
             nn.ReLU(),
-            nn.Linear(120, 2))
+            nn.Linear(200, 2))
         
     def forward(self, x):
         
@@ -55,12 +54,9 @@ class Conv_WS_NoAL(nn.Module):
         
         first_digit = self.layer2(first_digit)
         second_digit = self.layer2(second_digit)
-    
-        first_digit = F.relu(self.fc1(first_digit.view(-1, 4 * 4 * 64)))
-        second_digit = F.relu(self.fc1(second_digit.view(-1, 4 * 4 * 64)))
         
-        first_digit = self.fc2(first_digit)
-        second_digit = self.fc2(second_digit)
+        first_digit = self.fc(first_digit.view(-1, 4 * 4 * 64))
+        second_digit = self.fc(second_digit.view(-1, 4 * 4 * 64))
         
         result = torch.cat((first_digit, second_digit), dim=1, out=None)
         result = self.layer_comp(result)
