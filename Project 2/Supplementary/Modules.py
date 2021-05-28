@@ -155,7 +155,7 @@ class Linear(Layer):
 class Dropout(Layer) :
     def __init__(self):
         super().__init__()
-        self.p = 0.
+        self.p = 0.2
         self.is_dropout()
         self.train = True
         
@@ -163,7 +163,9 @@ class Dropout(Layer) :
     def forward(self, x):
         n = torch.ones(x.size())
         if self.train:
-            n = torch.bernoulli(n) * (1 - self.p)
+            n = n * (1 - self.p)
+            n = torch.bernoulli(n)
+            n = n / (1 - self.p)
         return x * n
         
     def backward(self, x):
